@@ -1,13 +1,22 @@
-# File Organiser 1.1
+#!/usr/bin/env python3
+# File Organiser 1.2
 
 # Import Libraries
+import argparse
 import os
 from pathlib import Path
 
-# Path to clean up
-Cleanup_Path = '/Users/trusty/Downloads/'
+# Construct the argument parse and parse the arguments
+# Use: ./File_Organiser.py -p ~/Downloads/
+ap = argparse.ArgumentParser()
+ap.add_argument("-p", "--path", required = True, help = "path to messy directory")
+args = vars(ap.parse_args())
+Cleanup_Path = args["path"]
 
-# Dictionary
+# Temporary files we don't want to touch, like a Chrome temporary downloads
+Files_to_not_move = [".crdownload"]
+
+# Folders and the respective files
 Directories = {
     "HTML": [".html5", ".html", ".htm", ".xhtml"],
     "Images": [".jpeg", ".jpg", ".tiff", ".gif", ".bmp", ".png", ".bpg",
@@ -26,7 +35,7 @@ Directories = {
     "Scripts": [".py", ".sh", ".bat", ".ps1"],
     "Arduino": [".ino"],
     "XML": [".xml"],
-    "Applications": [".exe"],
+    "Applications": [".exe", ".app"],
     "Fonts": [".ttf", ".ttc", ".pfb", ".pfm", ".otf", ".tfil", ".ffil",
               ".dfont", ".pfa", ".afm", ".woff", ".eot"]
 }
@@ -42,8 +51,6 @@ File_Formats = {
 
 
 # Start
-
-
 def organise():
 
     # For each 'file' in specified Cleanup_Path
@@ -54,7 +61,7 @@ def organise():
 
         # If file is not a file but a directory or a system file,
         # ignore and continue
-        if entry.is_dir() or str(file_path).startswith("."):
+        if entry.is_dir() or str(file_path).startswith(".") or entry in Files_to_not_move:
             continue
         # Creates the full path to the file we want to sort
         full_file_path = Path(Cleanup_Path+entry.name)

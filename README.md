@@ -13,21 +13,21 @@ Basically just copy anywhere. Change the CLEANUP_PATH to whatever you want to cl
 I set mine up with a cronjob:
 
 ```
-* * * * * /usr/local/bin/python3 /Users/trusty/Scripts/File_Organiser_v1.py
+* * * * * /usr/local/bin/python3 ~/Documents/Scripts/./File_Organiser.py -p ~/Downloads/
 ```
-This was crazy frustrating until I discovered [this](https://dccxi.com/posts/crontab-malfunction-catalina/):
+Or if you want to run it more frequently (Like every 20 seconds):
+```
+* * * * * /usr/local/bin/python3 ~/Documents/Scripts/File_Organiser.py -p ~/Downloads/; sleep 20; /usr/local/bin/python3 ~/Documents/Scripts/File_Organiser.py -p ~/Downloads/; sleep 20; /usr/local/bin/python3 ~/Documents/Scripts/File_Organiser.py -p ~/Downloads/
+```
+This was crazy frustrating until I discovered [this](https://dccxi.com/posts/crontab-not-working-catalina/):
 `
 New Catalina security permissions require you to add cron to:
 System Preferences.app -> Security & Privacy -> Privacy -> Full Disk Access
 `
 
 ## To Do:
-- Make work on windows
-  - Probably have to change a lot for this..
-- "Package" it?
-  - Make an application
-- Make a GUI because... GUI
+- Make it work on windows
+  - I think this should work.. haven't tested it though.
 - Add more features
-  - Select multiple folders
   - Maybe organise Photos/Video using meta data?
     Date Created, Camera, etc
