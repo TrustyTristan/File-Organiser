@@ -61,7 +61,7 @@ def organise():
 
         # If file is not a file but a directory or a system file,
         # ignore and continue
-        if entry.is_dir() or str(file_path).startswith(".") or entry in Files_to_not_move:
+        if entry.is_dir() or str(file_path).startswith(".") or file_path.suffix.lower() in Files_to_not_move:
             continue
         # Creates the full path to the file we want to sort
         full_file_path = Path(Cleanup_Path+entry.name)
