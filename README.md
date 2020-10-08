@@ -25,6 +25,35 @@ New Catalina security permissions require you to add cron to:
 System Preferences.app -> Security & Privacy -> Privacy -> Full Disk Access
 `
 
+I wanted to implement this on a linux host and run a bit more frequently, realised a daemon would probably be a better way to implement that.
+
+`sudo vi /usr/bin/file-organiser`
+```
+while true; do
+  /usr/bin/python3 /dir/path/File-Organiser.py -p /dir/path/to/downloads/
+  sleep 2;
+done
+```
+`sudo chmod +x /usr/bin/file-organiser`
+Create Service
+`sudo vi etc/systemd/system/file-organiser.service`
+```
+[Unit]
+Description=File Organiser
+
+[Service]
+ExecStart=/usr/bin/file-organiser
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target
+```
+
+Start Daemon
+`systemctl start file-organiser.service`
+Start at boot
+`systemctl enable file-organiser.service`
+
 ## To Do:
 - Make it work on windows
   - I think this should work.. haven't tested it though.
