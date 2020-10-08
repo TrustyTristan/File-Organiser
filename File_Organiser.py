@@ -14,7 +14,7 @@ args = vars(ap.parse_args())
 Cleanup_Path = args["path"]
 
 # Temporary files we don't want to touch, like a Chrome temporary downloads
-Files_to_not_move = [".crdownload"]
+Files_to_not_move = [".crdownload", ".aria2", ".aria2_temp"]
 
 # Folders and the respective files
 Directories = {
